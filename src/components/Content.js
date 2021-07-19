@@ -91,7 +91,8 @@ const sendData = async (url, data) => {
 
                
            </form>
-           <button onClick={handleLogin}><FormattedMessage id='click' /></button>
+           <br />
+           <button type="button" class="btn btn-primary" onClick={handleLogin}><FormattedMessage id='click' /></button>
        </div>
       
     </div>

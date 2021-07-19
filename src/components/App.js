@@ -29,7 +29,7 @@ const App = () => {
       locale={currentLocale}
       defaultLocale={LOCALES.ENGLISH}
     >
-      <div>
+      <div className="mainDiv">
         <Header currentLocale={currentLocale} handleChange={handleChange} />
         <Content />
       </div>
