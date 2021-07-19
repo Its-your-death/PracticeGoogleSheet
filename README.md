@@ -1,4 +1,6 @@
 # USE OPENSERVER AND COMPOSER FOR PHP 
+## $ wget https://github.com/googleapis/google-api-php-client/releases/download/v2.7.2/google-api-php-client-v2.7.2-PHP7.0.zip
+## composer self-update
 
 
 # Getting Started with Create React App
