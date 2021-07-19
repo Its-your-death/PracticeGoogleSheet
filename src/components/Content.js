@@ -28,7 +28,7 @@ const Content = (props) => {
 
 
 
-  const urlPhp = "http://practice/Sheets.php";
+  const urlPhp = "http://practice/quickstart.php";
 
 const sendData = async (url, data) => {
 
@@ -93,15 +93,15 @@ const sendData = async (url, data) => {
            
            <form >
                <FormattedMessage id='name' /> <br />
-               <input size="15" ref = {refName}></input><br />              
+               <input size="25" ref = {refName}></input><br />              
                <FormattedMessage id='Surname' /><br />
-               <input size="15" ref = {refSurname}></input><br />
+               <input size="25" ref = {refSurname}></input><br />
                <FormattedMessage id='Phone' /><br />              
-               <input name ={'Number'} ref = {refPhone} size="15"></input><br />
+               <input name ={'Number'} ref = {refPhone} size="25"></input><br />
                <FormattedMessage id='Email' /><br />
-               <input size="15" ref = {refEmail}></input><br />
+               <input size="25" ref = {refEmail}></input><br />
                <FormattedMessage id='Comm' /><br />
-               <input size="15" ref = {refComment}></input><br />
+               <input size="25" ref = {refComment}></input><br />
                
 
                
