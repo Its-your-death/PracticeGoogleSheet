@@ -1,5 +1,5 @@
 # USE OPENSERVER AND COMPOSER FOR PHP 
- $ wget https://github.com/googleapis/google-api-php-client/releases/download/v2.7.2/google-api-php-client-v2.7.2-PHP7.0.zip
+ $ wget https://github.com/googleapis/google-api-php-client/releases/download/v2.7.2/google-api-php-client-v2.7.2-PHP7.0.zip \
  composer self-update
 
 
@@ -16,7 +16,7 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
+The page will reload if you make edits.
 You will also see any lint errors in the console.
 
 ### `npm test`
