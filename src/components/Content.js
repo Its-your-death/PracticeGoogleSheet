@@ -1,6 +1,6 @@
 import { FormattedMessage } from "react-intl";
-import {  useRef } from 'react';
-import validator from 'validator'; 
+import { useState, useRef } from 'react';
+import {validator} from 'validator'; 
 
 
 
@@ -8,7 +8,7 @@ const Content = (props) => {
                         
  
 
-  validatePhoneNumber = (number) => {
+  const validatePhoneNumber = (number) => {
     const isValidPhoneNumber = validator.isMobilePhone(number)
     return (isValidPhoneNumber)
    }
@@ -46,7 +46,7 @@ const sendData = async (url, data) => {
 }
 
 
-  //const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
 
   
  
@@ -63,7 +63,7 @@ const sendData = async (url, data) => {
 
 
 
-  if (isValidPhoneNumber){
+  const handleLogin = async () => {
       
       const data = {
           "name": refName.current.value,
@@ -82,17 +82,16 @@ const sendData = async (url, data) => {
           const respJson = await sendData(urlPhp, data);
           console.log("Ответ", respJson);
 
-          props.access(respJson.connection);
-        // setError( respJson.error )
+         // props.access(respJson.connection);
+         // setError( respJson.error )
         }
-        else {
-          error = {value :<div>"Невалидный номер"</div>}
-        }
+        
+        
   return (
     <div className="container hero">
       <div className="formar">
            
-           <form method="POST" onSubmit={validatePhoneNumber (refPhone.current.value)}>
+           <form >
                <FormattedMessage id='name' /> <br />
                <input size="15" ref = {refName}></input><br />              
                <FormattedMessage id='Surname' /><br />
@@ -103,12 +102,11 @@ const sendData = async (url, data) => {
                <input size="15" ref = {refEmail}></input><br />
                <FormattedMessage id='Comm' /><br />
                <input size="15" ref = {refComment}></input><br />
-               {error}
-               <button type="submit"><FormattedMessage id='click' /></button>
+               
 
                
            </form>
-           
+           <button onClick={handleLogin}><FormattedMessage id='click' /></button>
        </div>
       
     </div>
