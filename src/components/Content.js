@@ -8,27 +8,12 @@ const Content = (props) => {
                         
  
 
-  const validatePhoneNumber = (number) => {
+ /*  const validatePhoneNumber = (number) => {
     const isValidPhoneNumber = validator.isMobilePhone(number)
     return (isValidPhoneNumber)
    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  const urlPhp = "http://practice/quickstart.php";
+ */
+  const urlPhp = "http://server/quickstart.php";
 
 const sendData = async (url, data) => {
 
