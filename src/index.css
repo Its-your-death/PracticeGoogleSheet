@@ -1,0 +1,34 @@
+body
+{background-color: #c5ffa0}
+
+
+.formar{
+  background-color: #7bc2c7;
+  border: solid;
+  margin: 2% 30%;
+  left: 15px;
+  }
+a
+{color:#000060;
+font-weight: bold;}
+a:hover
+{color:#ff0000; font-weight:
+bold; text-decoration:none}
+h1
+{color: #0000ff;
+font-size:18px}
+h2
+{color: #ff00ff;
+font-size:16px}
+p
+{color: #600000;
+font-size:14px}
+label{
+  padding-left: 45%;
+}
+input{
+  margin-left: 40%;
+}
+button{
+  margin-left: 38%;
+}
