@@ -1,18 +1,9 @@
 import { FormattedMessage } from "react-intl";
-import { useState, useRef } from 'react';
-import {validator} from 'validator'; 
-
+import {  useRef } from 'react';
 
 
 const Content = (props) => {
                         
- 
-
- /*  const validatePhoneNumber = (number) => {
-    const isValidPhoneNumber = validator.isMobilePhone(number)
-    return (isValidPhoneNumber)
-   }
- */
   const urlPhp = "http://server/quickstart.php";
 
 const sendData = async (url, data) => {
@@ -27,25 +18,12 @@ const sendData = async (url, data) => {
 
     const json = await resp.json();
     return json;
-
 }
-
-
-  const [error, setError] = useState(null);
-
-  
- 
-  
-  
-  
   const refName = useRef(null);
   const refSurname = useRef(null);
   const refPhone = useRef(null);
   const refEmail = useRef(null);
   const refComment = useRef(null);
-
-  
-
 
 
   const handleForm = async () => {
@@ -60,34 +38,22 @@ const sendData = async (url, data) => {
 
      
 
-      if (data.success && data.token) {
-        setState({
-            ...initialState,
-        });
-        localStorage.setItem('loginToken', data.token);
-        await isLoggedIn();
-    }
-    // Если вход не успешен
-    else {
-        setState({
-            ...state,
-            successMsg: '',
-            errorMsg: data.message
-        });
-    }
-
-
-
+      
 
 
      // if (setNumberError == null){
+
+     
           console.log(data);
-       
+        
           const respJson = await sendData(urlPhp, data);
           console.log("Ответ", respJson);
+          refName.current.value = '';
+          refSurname.current.value = '';
+          refPhone.current.value = '';
+          refEmail.current.value = '';
+          refComment.current.value = '';
 
-         // props.access(respJson.connection);
-         // setError( respJson.error )
         }
         
         
@@ -108,10 +74,10 @@ const sendData = async (url, data) => {
                <input size="25" ref = {refComment}></input><br />
                
 
-               
+               <button type="button" class="btn btn-primary" onClick={handleForm}><FormattedMessage id='click' /></button>
            </form>
            <br />
-           <button type="button" class="btn btn-primary" onClick={handleForm}><FormattedMessage id='click' /></button>
+           
        </div>
       
     </div>
