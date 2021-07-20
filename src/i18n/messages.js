@@ -17,7 +17,6 @@ export const messages = {
     Email: 'E-mail',
     Comm: 'Комментарий',
     click: 'Отправить',
-    contact_us: 'Свяжитесь с нами',
     languages: "Язык сайта"
   },
   [LOCALES.FRENCH]: {
