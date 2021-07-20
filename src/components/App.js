@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Header from "./Header";
 import Content from "./Content";
-//import Footer from "./Footer";
+import MyContextProvider from './Mycontext';
 
 import { IntlProvider } from "react-intl";
 import { LOCALES } from "../i18n/locales";
@@ -23,17 +23,19 @@ const App = () => {
     return savedLocale || LOCALES.ENGLISH;
   }
 
-  return (
-    <IntlProvider
-      messages={messages[currentLocale]}
-      locale={currentLocale}
-      defaultLocale={LOCALES.ENGLISH}
-    >
-      <div>
-        <Header currentLocale={currentLocale} handleChange={handleChange} />
-        <Content />
-      </div>
-    </IntlProvider>
+  return ( 
+    <MyContextProvider>
+      <IntlProvider
+        messages={messages[currentLocale]}
+        locale={currentLocale}
+        defaultLocale={LOCALES.ENGLISH}
+      >
+        <div>
+          <Header currentLocale={currentLocale} handleChange={handleChange} />
+          <Content />
+        </div>
+      </IntlProvider>
+    </MyContextProvider>
   );
 };
 

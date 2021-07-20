@@ -1,87 +1,120 @@
 import { FormattedMessage } from "react-intl";
-import {  useRef } from 'react';
+import { useContext, useState, useRef } from 'react';
+import { MyContext } from './Mycontext'
 
 
-const Content = (props) => {
-                        
-  const urlPhp = "http://server/quickstart.php";
-
-const sendData = async (url, data) => {
-
-    const resp = await fetch(url,{
-        method : 'POST',
-        headers : {
-            'Content-Type': 'application/json'
-        },
-        body : JSON.stringify(data)          
-    });
-
-    const json = await resp.json();
-    return json;
-}
-  const refName = useRef(null);
-  const refSurname = useRef(null);
-  const refPhone = useRef(null);
-  const refEmail = useRef(null);
-  const refComment = useRef(null);
 
 
-  const handleForm = async () => {
-      
-      const data = {
-          "name": refName.current.value,
-          "surname": refSurname.current.value,
-          "phone": refPhone.current.value,
-          "email": refEmail.current.value,
-          "comment": refComment.current.value
-      };
+function Content() {
+  //const urlPhp = "http://server/quickstart.php";
+  const { registerFormPhp } = useContext(MyContext);
+  
+  const back = false;
 
-     
+  const initialState = {
+      form: {
+        name: '',
+        surname: '',
+        email: '',
+        phone: '',
+        comment: '',
+      },
+      errorCod: '',
+      errorMsg: '',
+      successMsg: '',
+  }
 
-      
+  
 
 
-     // if (setNumberError == null){
+  const [state, setState] = useState(initialState);
 
-     
-          console.log(data);
-        
-          const respJson = await sendData(urlPhp, data);
-          console.log("Ответ", respJson);
-          refName.current.value = '';
-          refSurname.current.value = '';
-          refPhone.current.value = '';
-          refEmail.current.value = '';
-          refComment.current.value = '';
+  const submitForm = async (event) => {
+    event.preventDefault();
+    const data = await registerFormPhp(state.form);
+    if (data.success) {     
+        setState({
+            ...initialState,
+            successMsg: data.message,            
+        });
+        const back = true;
+    }
+    // Если отправка не успешна
+    else {
+        setState({
+            ...state,
+            
+            errorCod: data.status,
+            successMsg: '',
+            errorMsg: data.message
+        });
+    }
+  }
 
+  const onChangeValue = (e) => {
+    setState({
+        ...state,
+        form: {
+            ...state.form,
+            [e.target.name]: e.target.value
         }
-        
-        
-  return (
-    <div className="container hero">
-      <div className="formar">
-           
-           <form >
-               <FormattedMessage id='name' /> <br />
-               <input size="25" ref = {refName}></input><br />              
-               <FormattedMessage id='Surname' /><br />
-               <input size="25" ref = {refSurname}></input><br />
-               <FormattedMessage id='Phone' /><br />              
-               <input name ={'Number'} ref = {refPhone} size="25"></input><br />
-               <FormattedMessage id='Email' /><br />
-               <input size="25" ref = {refEmail}></input><br />
-               <FormattedMessage id='Comm' /><br />
-               <input size="25" ref = {refComment}></input><br />
-               
+    });
+  }
 
-               <button type="button" class="btn btn-primary" onClick={handleForm}><FormattedMessage id='click' /></button>
-           </form>
-           <br />
-           
-       </div>
+    let successMsg = '';
+    let errorMsg = '';
+    let errorCod = '';
+    switch (state.errorCod){
+      case 400: errorCod = <div className ='alert'><FormattedMessage id='e400' /><br /></div>;
+                break
+      case 403: errorCod = <div className ='alert'><FormattedMessage id='e403' /><br /></div>;
+                break
+      case 404: errorCod = <div className ='alert'><FormattedMessage id='e404' /><br /></div>;
+    }
+    if (successMsg){
       
-    </div>
-  );
+    }
+    successMsg = <div className ='Success'><FormattedMessage id='Success' /><br /></div>;
+  if (!successMsg){     
+    return (
+      <div className="container hero">
+        <div className="formar">
+            
+            <form onSubmit={submitForm} noValidate autoComplete="off" >
+                <FormattedMessage id='name' /> <br />
+                <input name='name' size="25" value={state.form.name} onChange ={onChangeValue} ></input><br />              
+                <FormattedMessage id='Surname' /><br />
+                <input name='surname' size="25" value={state.form.surname} onChange ={onChangeValue} ></input><br />
+                <FormattedMessage id='Phone' /><br />              
+                <input name ='phone' value={state.form.phone}  size="25" onChange ={onChangeValue} ></input><br />
+                <FormattedMessage id='Email' /><br />
+                <input size="25" name="email" type="email" value={state.form.email} onChange ={onChangeValue} ></input><br />
+                <FormattedMessage id='Comm' /><br />
+                <input name = 'comment' size="25" value={state.form.comment} onChange ={onChangeValue} ></input><br />
+                {errorCod}
+                {errorMsg}
+                {successMsg}
+                <button 
+                className="btn btn-primary" 
+                type="submit">
+                  <FormattedMessage id='click' />
+                </button>
+            </form>
+            <br />
+            
+        </div>
+        
+      </div>
+    );
+  } 
+  else {
+    return (
+      <div className="container hero">
+        <div className="formar"></div>
+        {successMsg}
+        </div> 
+    )         
+  }
 };
 
 export default Content;

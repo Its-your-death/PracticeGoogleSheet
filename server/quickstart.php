@@ -1,26 +1,60 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: access");
+header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+
+
 
 // Подключаем клиент Google таблиц
 require_once __DIR__ . '/vendor/autoload.php';
 
+function msg($success, $status, $message, $extra = [])
+{
+    return array_merge([
+        'success' => $success,
+        'status' => $status,
+        'message' => $message
+    ], $extra);
+};
 
-$JSONData = file_get_contents("php://input");
-$dataObject = json_decode($JSONData);
-    $returnData = [];
+$data = json_decode(file_get_contents("php://input"));
+$returnData = [];
+if ($_SERVER["REQUEST_METHOD"] != "POST") :
+    $returnData = msg(0, 404, 'Page Not Found!');
 
-            $userName = $dataObject->name;
-            $userSurname = $dataObject->surname;
-            $userPhone = $dataObject->phone;
-            $userEmail = $dataObject->email;
-            $userComm = $dataObject->comment;
+// Если проверка успешна
+else :
+    $name = trim($data->name);
+    $surname = trim($data->surname);
+    $phone = trim($data->phone);
+    $email = trim($data->email);
+    $comment = trim($data->comment);
     
-            if (strlen((string)$userPhone) != 11) :
-                $returnData = 'Ваш номер телефона должен содержать 11 цифр!';
-                else :try {
+/* 
+    $name = 'Loda';//trim($data->name);
+    $surname = 'Loooda' ;//trim($data->surname);
+    $phone = '88005553535';//trim($data->phone);
+    $email = 'Vt@y.ru' ;//trim($data->email);
+    $comment = 'Comment' ;
+ */
+
+    // Валидация полей
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) :
+        $returnData = msg(0, 400, 'Некорректно введен email!');
+
+    elseif (strlen((string)$phone) != 11) :
+        $returnData = msg(0, 403, 'Ваш номер телефона должен содержать 11 цифр!');
+
+    else :
+        try {
+            // $userName = $dataObject->name;
+            // $userSurname = $dataObject->surname;
+            // $userPhone = $dataObject->phone;
+            // $userEmail = $dataObject->email;
+            // $userComm = $dataObject->comment;
 
 
 
@@ -45,7 +79,7 @@ $dataObject = json_decode($JSONData);
                     $spreadsheetName = "list1";
 
                     $values = [
-                        [$userName,$userSurname,$userPhone,$userEmail,$userComm]
+                        [$name,$surname,$phone,$email,$comment]
                     ];
 
 
@@ -54,13 +88,14 @@ $dataObject = json_decode($JSONData);
                     $option = array('valueInputOption' => 'USER_ENTERED');
 
                     $service->spreadsheets_values->append($spreadsheetId, $spreadsheetName, $body, $option);
-                    $returnData = [
-                        'success' => 1,
-                        'message' => 'Успех'];
-}
-catch(PDOException $e){
-    $returnData = msg(0, 500, $e->getMessage());
-    echo json_encode($returnData);
-}
-endif;  
-echo json_encode($returnData);  
+                    $returnData = msg(1, 201, 'Данные занесены');
+
+            
+        } catch (PDOException $e) {
+            $returnData = msg(0, 500, $e->getMessage());
+        }
+    endif;
+
+endif;
+
+echo json_encode($returnData);

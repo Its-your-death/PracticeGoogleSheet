@@ -9,6 +9,10 @@ export const messages = {
     Comm: 'Comment',
     click: 'Submit',
     languages: "Languages",
+    Success: 'Success',
+    e400: 'Invalid email address!',
+    e403: 'Invalid Number!',
+    e404: 'Page Not Found!'
   },
   [LOCALES.RUSSIAN]: {
     name: `Имя`,
@@ -17,7 +21,11 @@ export const messages = {
     Email: 'E-mail',
     Comm: 'Комментарий',
     click: 'Отправить',
-    languages: "Язык сайта"
+    languages: "Язык сайта",
+    Success: 'Успешно',
+    e400: 'Некорректно введен email!',
+    e403: 'Некорректный Номер!',
+    e404: 'Страница Не Найдена!'
   },
   [LOCALES.FRENCH]: {
     name: `Nom`,
@@ -27,5 +35,9 @@ export const messages = {
     Comm: 'Commentaire',
     click: 'Envoyer',
     languages: "Langues",
+    Success: 'Avec succès',
+    e400: 'Email incorrect!',
+    e403: 'Numéro incorrect!',
+    e404: 'Page Non Trouvée!'
   },
 };

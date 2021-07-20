@@ -1,6 +1,18 @@
+.alert{
+  color: red;
+}
 
-
-
+.Success{
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 15px;
+  max-width: max-content;
+  border: 1px solid green;
+  border-radius: 5px;
+  color: green;
+  font-size: 100px;
+  font-weight: bolder; 
+}
 
 * {
   margin: 0;
