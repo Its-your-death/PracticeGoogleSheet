@@ -4,12 +4,13 @@ import { MyContext } from './Mycontext'
 
 
 
+const sendTable = false;
 
 function Content() {
   //const urlPhp = "http://server/quickstart.php";
   const { registerFormPhp } = useContext(MyContext);
   
-  const back = false;
+ 
 
   const initialState = {
       form: {
@@ -32,12 +33,11 @@ function Content() {
   const submitForm = async (event) => {
     event.preventDefault();
     const data = await registerFormPhp(state.form);
-    if (data.success) {     
+    if (data.success) {    
         setState({
             ...initialState,
             successMsg: data.message,            
         });
-        const back = true;
     }
     // Если отправка не успешна
     else {
@@ -72,10 +72,11 @@ function Content() {
       case 404: errorCod = <div className ='alert'><FormattedMessage id='e404' /><br /></div>;
     }
     if (successMsg){
-      
+      sendTable = true; 
+      successMsg = <div className ='Success'><FormattedMessage id='Success' /><br /></div>;
     }
-    successMsg = <div className ='Success'><FormattedMessage id='Success' /><br /></div>;
-  if (!successMsg){     
+    
+  if (!sendTable){     
     return (
       <div className="container hero">
         <div className="formar">
@@ -93,7 +94,6 @@ function Content() {
                 <input name = 'comment' size="25" value={state.form.comment} onChange ={onChangeValue} ></input><br />
                 {errorCod}
                 {errorMsg}
-                {successMsg}
                 <button 
                 className="btn btn-primary" 
                 type="submit">
