@@ -49,8 +49,4 @@ $option = array('valueInputOption' => 'USER_ENTERED');
 
 $service->spreadsheets_values->append($spreadsheetId, $spreadsheetName, $body, $option);
 
-echo json_encode($userName);
-echo json_encode($userSurname);
-echo json_encode($userPhone);
-echo json_encode($userEmail);
-echo json_encode($userComm);
+echo json_encode($values);
