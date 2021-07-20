@@ -2,8 +2,6 @@ import { FormattedMessage } from "react-intl";
 import { useContext, useState, useRef } from 'react';
 import { MyContext } from './Mycontext'
 
-
-
 const sendTable = false;
 
 function Content() {
@@ -73,9 +71,9 @@ function Content() {
     }
     if (successMsg){
       sendTable = true; 
-      successMsg = <div className ='Success'><FormattedMessage id='Success' /><br /></div>;
+      
     }
-    
+    successMsg = <div className ='Success'><FormattedMessage id='Success' /><br /></div>;
   if (!sendTable){     
     return (
       <div className="container hero">
