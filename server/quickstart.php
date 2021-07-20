@@ -5,7 +5,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 // Подключаем клиент Google таблиц
 require_once __DIR__ . '/vendor/autoload.php';
-
+try {
 
 $JSONData = file_get_contents("php://input");
 $dataObject = json_decode($JSONData);
@@ -50,3 +50,9 @@ $option = array('valueInputOption' => 'USER_ENTERED');
 $service->spreadsheets_values->append($spreadsheetId, $spreadsheetName, $body, $option);
 
 echo json_encode($values);
+}
+catch(Throwable $th){
+    echo json_encode($th-> getMessage());
+}
+    
+    

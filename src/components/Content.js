@@ -48,7 +48,7 @@ const sendData = async (url, data) => {
 
 
 
-  const handleLogin = async () => {
+  const handleForm = async () => {
       
       const data = {
           "name": refName.current.value,
@@ -59,6 +59,25 @@ const sendData = async (url, data) => {
       };
 
      
+
+      if (data.success && data.token) {
+        setState({
+            ...initialState,
+        });
+        localStorage.setItem('loginToken', data.token);
+        await isLoggedIn();
+    }
+    // Если вход не успешен
+    else {
+        setState({
+            ...state,
+            successMsg: '',
+            errorMsg: data.message
+        });
+    }
+
+
+
 
 
      // if (setNumberError == null){
@@ -92,7 +111,7 @@ const sendData = async (url, data) => {
                
            </form>
            <br />
-           <button type="button" class="btn btn-primary" onClick={handleLogin}><FormattedMessage id='click' /></button>
+           <button type="button" class="btn btn-primary" onClick={handleForm}><FormattedMessage id='click' /></button>
        </div>
       
     </div>
